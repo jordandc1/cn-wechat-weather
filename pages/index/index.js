@@ -25,12 +25,23 @@ const weatherColorMap = {
   'snow': '#aae1fc'
 }
 
+const iconMap = {
+  'sunny': '/pages/image/sunny-icon.png',
+  'cloudy': '/pages/image/cloudy-icon.png',
+  'overcast': '/pages/image/overcast-icon.png',
+  'lightrain': '/pages/image/lightrain-icon.png',
+  'heavyrain': '/pages/image/heavyrain-icon.png',
+  'snow': '/pages/image/snow-bg.png'
+}
+
 
 Page({
   data: {
     temp: '',
     weather: '',
-    url: ''
+    url: '',
+    item: [],
+    forecast_url: ''
   },
   onLoad() {
     this.getNow()
@@ -53,11 +64,23 @@ Page({
         let result = res.data.result
         let temp = result.now.temp
         let weather = result.now.weather
-        console.log(temp, weather)
+        let item = result.forecast
+        
+        console.log(temp, weather, item)
         this.setData({
           temp: temp + '°',
           weather: weatherMap[weather],
-          url: imageMap[weather]
+          url: imageMap[weather],
+          item: item,
+          forecast_url: ['/pages/image/'+item[0].weather+'-icon.png',
+            '/pages/image/' + item[1].weather+'-icon.png',
+            '/pages/image/' + item[2].weather+'-icon.png',
+            '/pages/image/' + item[3].weather+'-icon.png',
+            '/pages/image/' + item[4].weather+'-icon.png',
+            '/pages/image/' + item[5].weather+'-icon.png',
+            '/pages/image/' + item[6].weather+'-icon.png',
+            '/pages/image/' + item[7].weather + '-icon.png',
+                         ]
         })
         wx.setNavigationBarColor({
           frontColor: '#000000',
