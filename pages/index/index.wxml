@@ -1,15 +1,35 @@
 <view class="weather-wrapper">
-<image class="weather-bg" src="{{ url }}" mode="scaleToFill"></image>
+  <view class="location-wrapper">
+  <view class="location">
+      <image class="location-icon" src="/pages/image/location-icon.png"></image>
+      <view class="location-text">{{city}}</view>
+  </view>
+      <view class="location-tips" bindtap='onTapLocation'>{{locationTipsText}}</view>
+  </view>
 <view class="temp">{{ temp }}</view>
 <view class="weather">{{ weather }}</view>
+<image class="weather-bg" src="{{ url }}" mode="scaleToFill"></image>
+<view class="day-weather" id="tapTest" data-hi="WeChat" bindtap='onTapDayWeather'>
+    <view class="day-text">{{todayDate}}</view>
+    <view class="temp-text">{{todayTemp}}</view>
+  <image class="arrow-icon" src="/pages/image/arrow.png"></image>
+</view>
+
 </view>
 <view class="forecast">
 <image class="forecast-icon" src="/pages/image/time-icon.png"></image>
 <view class="forecast-text">未来24小时天气预测</view>
+
 </view>
 
 <scroll-view scroll-x style="width: 100%">
-<view  class="forecast-list"> 
-<view class="forecast-item" wx:for="{{item}}">{{index}}<image class="forecast-icon" src="{{forecast_url[index]}}"></image></view>
-</view>
+  <view class='forecast-list'>
+    <view class="forecast-item" wx:for="{{hourlyWeather}}">
+      <view class= 'forecast-time'>{{item.time}}</view>
+      <image class= 'forecast-weather'
+             src='{{item.iconPath}}'>
+      </image>
+      <view class= 'forecast-temp'>{{item.temp}}</view>
+    </view>
+  </view>
 </scroll-view>
